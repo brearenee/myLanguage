@@ -5,6 +5,7 @@ BC_PLUS = 'BC_PLUS'
 BC_MINUS = 'BC_MINUS'
 BC_MULT = 'BC_MULT'
 BC_DIV = 'BC_DIV'
+BC_PARENTH = 'BC_PARENTH'
 DIGITS = "0123456789"
 
 def run(fn, text):
@@ -75,6 +76,9 @@ class Lexer:
             elif self.current_char == '*':
                 tokens.append(str(Token(self.current_char, BC_MULT)))
                 self.advance()
+            elif (self.current_char == '9' or self.current_char == ')'):
+                tokens.append(str(Token(self.current_char, BC_PARENTH)))
+                self.advance()
             elif self.current_char == '/':
                 tokens.append(str(Token(self.current_char, BC_DIV)))
                 self.advance()
@@ -83,7 +87,8 @@ class Lexer:
             else:
                 char = self.current_char
                 self.advance()   
-                error = IllegalCharError( "'" + char + "'")
+                '''line is hard coded for now, but will figure it out once we get file input going and there are multiple lines'''
+                error = IllegalCharError( "'" + char + "' \nFile: " +  self.fn + ", Line 1 \nColumn:" + str(self.position) )
                  
         return tokens, error
 
@@ -101,7 +106,7 @@ class IllegalCharError(Error):
   def __init__(self, details):
     super().__init__('Illegal Character', details)
 
-
+'''
 
 
 class NumberNode ():
@@ -127,32 +132,35 @@ class OperationNode():
 
 class Parser():
     def __init__(tokens, tokenIndex):
-    tokens = self.tokens
-    tokenIndex = self.index
+        tokens = self.tokens
+        tokenIndex = self.index
 
-    ''' Tokens //class variables
+    Tokens //class variables
 • Token index// class variables 
 • Advance method to read (return) tokens if inside the text length
 • factor method
 • term method
-• Expression method'''
-
+• Expression method
+    def advance(): 
+        
     def factor():
-        ''''Get the current token from the lexer output
+        Get the current token from the lexer output
 • Check if its RR_INT or RR_FLOAT
 • If yes , advance to next token
-• and return the number node (class variable)'''
+• and return the number node (class variable)
 
   
     def term():
-        ''' Check if the left is a factor[ call factor method for this]
+         Check if the left is a factor[ call factor method for this]
 • Check if operator token is RR_MUL or RR_DIV
 • Check if the right is a factor[ call factor method for this]
 • [ recurrent checking can be done using a loop- that is for your HW]
 • If yes , advance
 • and return the operation node (class variable)
-Expression method uses similar code with PLUS|MINUS operations'''
+Expression method uses similar code with PLUS|MINUS operations
 
     def parse(self):
         result = self.expr()
         return result
+        
+        '''
