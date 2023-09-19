@@ -26,7 +26,8 @@ class Token:
         self.type = token_type
 
     def __str__(self):
-        return f"[value:'{self.value}', type:'{self.type}']"
+        return f"{self.type}:{self.value}"
+
 
 class Lexer:
     def __init__(self, fn, text):
@@ -76,7 +77,7 @@ class Lexer:
             elif self.current_char == '*':
                 tokens.append(str(Token(self.current_char, BC_MULT)))
                 self.advance()
-            elif (self.current_char == '9' or self.current_char == ')'):
+            elif (self.current_char == '(' or self.current_char == ')'):
                 tokens.append(str(Token(self.current_char, BC_PARENTH)))
                 self.advance()
             elif self.current_char == '/':
