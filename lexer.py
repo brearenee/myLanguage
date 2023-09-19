@@ -3,12 +3,20 @@ BC_INT = 'BC_INT'
 BC_FLOAT = 'BC_FLOAT'
 BC_PLUS = 'BC_PLUS'
 BC_MINUS = 'BC_MINUS'
+BC_MULT = 'BC_MULT'
+BC_DIV = 'BC_DIV'
 DIGITS = "0123456789"
 
 def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens() 
     return tokens, error
+
+'''Modify the run method
+• # To generate Abstract Syntax Tree (AST)
+parser = Parser(tokens) #tokens are output of lexer
+AST= parser.parse()
+return AST,None'''
 
 
 class Token:
@@ -62,7 +70,13 @@ class Lexer:
                 tokens.append(str(Token(self.current_char, BC_PLUS)))
                 self.advance()
             elif self.current_char == '-':
-                tokens.append(str(Token(self.current_char,BC_MINUS,)))
+                tokens.append(str(Token(self.current_char, BC_MINUS)))
+                self.advance()
+            elif self.current_char == '*':
+                tokens.append(str(Token(self.current_char, BC_MULT)))
+                self.advance()
+            elif self.current_char == '/':
+                tokens.append(str(Token(self.current_char, BC_DIV)))
                 self.advance()
             elif self.current_char in DIGITS+'.':
                 tokens.append(str(self.make_digit()))
@@ -86,3 +100,59 @@ class Error:
 class IllegalCharError(Error):
   def __init__(self, details):
     super().__init__('Illegal Character', details)
+
+
+
+
+class NumberNode ():
+    def __init__(self, token):
+        self.token = token
+    def __str__(self):
+        return f"{self.token}"
+    ##Constructor to initalize class variable token. 
+    ##representation method to print in string format. 
+
+class OperationNode():
+
+    def __init (self, left_node, operator_token, right_node):
+            self.left_node = left_node
+            self.operator_token = operator_token
+            self.right_node = right_node 
+    def __str__(self):
+        return f"left : {self.left_node} , token: {self.operator_token}, right: {self.right_node}"
+
+    ##Constructor to initialize class variables. 
+    ##??
+    ##customer representation method to print instring format.
+
+class Parser():
+    def __init__(tokens, tokenIndex):
+    tokens = self.tokens
+    tokenIndex = self.index
+
+    ''' Tokens //class variables
+• Token index// class variables 
+• Advance method to read (return) tokens if inside the text length
+• factor method
+• term method
+• Expression method'''
+
+    def factor():
+        ''''Get the current token from the lexer output
+• Check if its RR_INT or RR_FLOAT
+• If yes , advance to next token
+• and return the number node (class variable)'''
+
+  
+    def term():
+        ''' Check if the left is a factor[ call factor method for this]
+• Check if operator token is RR_MUL or RR_DIV
+• Check if the right is a factor[ call factor method for this]
+• [ recurrent checking can be done using a loop- that is for your HW]
+• If yes , advance
+• and return the operation node (class variable)
+Expression method uses similar code with PLUS|MINUS operations'''
+
+    def parse(self):
+        result = self.expr()
+        return result
