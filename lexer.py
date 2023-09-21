@@ -112,7 +112,7 @@ class Position:
     def __init__(self, sindex, linenum, columnnumber, fn, text):
         self.sindex = sindex
         self.line_num = linenum
-        self.col_num = columnnumber
+        self.col_num = columnnumber + 1
         self.fn = fn
         self.text = text
         self.char = text[sindex]
