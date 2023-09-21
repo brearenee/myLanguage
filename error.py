@@ -1,4 +1,4 @@
-class Error:
+'''class Error:
 
   def __init__(self, error_name, details):
     self.error_name = error_name
@@ -10,4 +10,4 @@ class Error:
 class IllegalCharError(Error):
   def __init__(self, details):
     super().__init__('Illegal Character', details)
-
+'''
