@@ -1,65 +1,63 @@
+import lexer as lex
+
 class NumberNode ():
     def __init__(self, token):
         self.token = token
     def __str__(self):
         return f"{self.token}"
-    ##Constructor to initalize class variable token. 
-    ##representation method to print in string format. 
-
+    ##number node doesnt need a left/right because its a terminal/factor
+    
+##DONE
 class OperationNode():
-
-    def __init (self, left_node, operator_token, right_node):
-            self.left_node = left_node
-            self.operator_token = operator_token
-            self.right_node = right_node 
+    def __init (self, left_node, operation_token, right_node):
+            self.l_node = left_node
+            self.op_token = operation_token
+            self.r_node = right_node 
     def __str__(self):
-        return f"left : {self.left_node} , token: {self.operator_token}, right: {self.right_node}"
-
-    ##Constructor to initialize class variables. 
-    ##??
-    ##customer representation method to print instring format.
+        return f"left : {self.l_node} , token: {self.operator}, right: {self.r_node}"
 
 class Parser():
+    ##Parser is taking in all of the tokens put in that list 
+    # made from the Lexer.
+
+    ##DONE
     def __init__(self, tokens):   
-       ## self.position = 0
         self.tokens = tokens
-        self.tokenIndex = 0
-        self.current_token = tokens[tokenIndex]
+        self.token_index = 0
+        self.current_token = tokens[0]
 
-        '''   Tokens //class variables
-        • Token index// class variables 
-    • Advance method to read (return) tokens if inside the text length '''
-
+    ##DONE
     def parse(self):
-        result = self.expr()
+        result = self.expression()
         return result
 
+
+    ##returns the next token from the list of tokens. 
     def advance(self): 
-        self.tokenIndex += 1
+        self.token_index += 1
         if self.self_index < len(self.tokens):
             self.current_token = self.tokens[self.token_index]
         else:
             self.current_token = None
-     
+
+    ##checking if the current token is a terminal/factor. 
     def factor(self):
         token = self.current_token
-        if token.type in (BC_INT, BC_FLOAT):
-            advance()
+        if token.type in (lex.BC_INT, lex.BC_FLOAT):
+            self.advance()
         return NumberNode(token)
-
-    '''    Get the current token from the lexer output
-    • Check if its RR_INT or RR_FLOAT
-    • If yes , advance to next token
-    • and return the number node (class variable)'''
+        ##Do I need to return anything if its not a factor? 
 
     def term(self):
-        left = factor()
-        while self.current_tok.type in (_____, _______):
+        left = self.factor()
+        opTree = self.factor() ##operation Tree? confused by this. 
+        while self.current_token.type in (lex.BC_MUL, lex.BC_DIV):
             op_token = self.current_token
-          ##  __________  //move to next
-            right = _________
-            opTree = OperationNode(left, op_token, right)
+            self.advance() 
+        right = self.factor()
+        opTree = OperationNode(left, op_token, right)
         return opTree
+    
         ''' Check if the left is a factor[ call factor method for this]
     • Check if operator token is RR_MUL or RR_DIV
     • Check if the right is a factor[ call factor method for this]
