@@ -1,4 +1,5 @@
 import errors as errors
+import parse as p
 
 BC_INT = 'BC_INT'
 BC_FLOAT = 'BC_FLOAT'
@@ -15,7 +16,12 @@ operator_list = [BC_PLUS, BC_MINUS, BC_MULT, BC_DIV, BC_L_PAR, BC_R_PAR ]
 def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens() 
-    return tokens, error
+    ##return tokens, error
+    # To generate Abstract Syntax Tree (AST)
+    parser = p.Parser(tokens) #tokens are output of lexer
+    AST= parser.parse()
+    print("do i reach this in run? \n")
+    return AST, error, None
 
 class Token:
     def __init__(self, value, token_type):

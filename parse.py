@@ -14,7 +14,7 @@ class OperationNode():
             self.op_token = operation_token
             self.r_node = right_node 
     def __str__(self):
-        return f"left : {self.l_node} , token: {self.operator}, right: {self.r_node}"
+        return f"{self.operation_token}"
 
 class Parser():
     ##Parser is taking in all of the tokens put in that list 
@@ -35,7 +35,7 @@ class Parser():
     ##returns the next token from the list of tokens. 
     def advance(self): 
         self.token_index += 1
-        if self.self_index < len(self.tokens):
+        if self.token_index < len(self.tokens):
             self.current_token = self.tokens[self.token_index]
         else:
             self.current_token = None
@@ -54,8 +54,8 @@ class Parser():
         while self.current_token.type in (lex.BC_MUL, lex.BC_DIV):
             op_token = self.current_token
             self.advance() 
-        right = self.factor()
-        opTree = OperationNode(left, op_token, right)
+            right = self.factor()
+            opTree = OperationNode(left, op_token, right)
         return opTree
     
         ''' Check if the left is a factor[ call factor method for this]
@@ -66,11 +66,12 @@ class Parser():
     • and return the operation node (class variable)
     Expression method uses similar code with PLUS|MINUS operations'''
 
-  def expression(self):
-    left = term()
-    while self.current_tok.type in (_____, _______):
-      op_token = self.current_token
-      __________  //move to next
-      right = _________
-      opTree = OperationNode(left, op_token, right)
-    return opTree
+    def expression(self):
+        left = self.term()
+        opTree = self.term()
+        while self.current_token.type in (lex.BC_PLUS, lex.BC_MINUS):
+            op_token = self.current_token
+            self.advance()
+        right = self.factor()
+        opTree = OperationNode(left, op_token, right)
+        return opTree
