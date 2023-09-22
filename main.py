@@ -1,5 +1,4 @@
 import lexer as lexer
-import error as errors
 
 while True:
     text = input('B@C> ')

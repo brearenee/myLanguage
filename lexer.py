@@ -1,4 +1,5 @@
-import error as errors
+import errors as errors
+
 BC_INT = 'BC_INT'
 BC_FLOAT = 'BC_FLOAT'
 BC_PLUS = 'BC_PLUS'
@@ -90,23 +91,10 @@ class Lexer:
                 tokens.append(str(self.make_digit()))
             else: 
                 char = self.current_char
-                error = IllegalCharError( self.pos )
+                error = errors.IllegalCharError( self.pos )
                 self.advance()
          
         return tokens, error
-
-class Error:
-
-  def __init__(self, error_name, details):
-    self.error_name = error_name
-    self.details = details
-  def as_string(self):
-    result = f'{self.error_name}: {self.details}\n'
-    return result
-
-class IllegalCharError(Error):
-  def __init__(self, details):
-    super().__init__('Illegal Character', details)
 
 class Position: 
     def __init__(self, sindex, linenum, columnnumber, fn, text):
