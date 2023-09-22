@@ -82,7 +82,7 @@ class Lexer:
                 tokens.append(str(Token(self.current_char, BC_L_PAR)))
                 self.advance()
             elif (self.current_char == ')'):
-                tokens.append(str(Token(self.current_char, BC_L_PAR)))
+                tokens.append(str(Token(self.current_char, BC_R_PAR)))
                 self.advance()
             elif self.current_char == '/':
                 tokens.append(str(Token(self.current_char, BC_DIV)))
