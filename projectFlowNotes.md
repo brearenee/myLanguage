@@ -1,5 +1,16 @@
 
 
+## Parse Tree Rules: 
+•start with empty node.
+•If the current token is a "(", add a new node as the left child of the current node,
+and descend to that left child.
+• If the current token is in the list ["+", "-", "/", "*"], set the root value of the current
+node to the operator represented by the current token. Add a new node as the
+right child of the current node and descend to that right child.
+• If the current token is a number, set the root value of the current node to the
+number and return to the parent.
+• If the current token is a ")", go to the parent of the current node
+
 user input inserted. 
 we call the *run* method inside lexor file. 
 

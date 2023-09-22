@@ -20,7 +20,7 @@ def run(fn, text):
     # To generate Abstract Syntax Tree (AST)
     parser = p.Parser(tokens) #tokens are output of lexer
     AST= parser.parse()
-    print("do i reach this in run? \n")
+
     return AST, error, None
 
 class Token:
@@ -76,25 +76,25 @@ class Lexer:
                 self.advance()
                 continue
             elif self.current_char == '+':
-                tokens.append(str(Token(self.current_char, BC_PLUS)))
+                tokens.append(Token(self.current_char, BC_PLUS))
                 self.advance()
             elif self.current_char == '-':
-                tokens.append(str(Token(self.current_char, BC_MINUS)))
+                tokens.append(Token(self.current_char, BC_MINUS))
                 self.advance()
             elif self.current_char == '*':
-                tokens.append(str(Token(self.current_char, BC_MULT)))
+                tokens.append(Token(self.current_char, BC_MULT))
                 self.advance()
             elif (self.current_char == '('):
-                tokens.append(str(Token(self.current_char, BC_L_PAR)))
+                tokens.append(Token(self.current_char, BC_L_PAR))
                 self.advance()
             elif (self.current_char == ')'):
-                tokens.append(str(Token(self.current_char, BC_R_PAR)))
+                tokens.append(Token(self.current_char, BC_R_PAR))
                 self.advance()
             elif self.current_char == '/':
-                tokens.append(str(Token(self.current_char, BC_DIV)))
+                tokens.append(Token(self.current_char, BC_DIV))
                 self.advance()
             elif self.current_char in DIGITS+'.':
-                tokens.append(str(self.make_digit()))
+                tokens.append(self.make_digit())
             else: 
                 char = self.current_char
                 error = errors.IllegalCharError( self.pos )
