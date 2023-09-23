@@ -51,25 +51,17 @@ class Parser():
     def term(self):
         left = self.factor()
         opTree = left
-        while self.current_token in (lex.BC_MULT, lex.BC_DIV):
+        while self.current_token is not None and self.current_token.type in (lex.BC_MULT, lex.BC_DIV):
             op_token = self.current_token
             self.advance() 
             right = self.factor()
             opTree = OperationNode(left, op_token, right)
         return opTree
     
-        ''' Check if the left is a factor[ call factor method for this]
-    • Check if operator token is RR_MUL or RR_DIV
-    • Check if the right is a factor[ call factor method for this]
-    • [ recurrent checking can be done using a loop- that is for your HW]
-    • If yes , advance
-    • and return the operation node (class variable)
-    Expression method uses similar code with PLUS|MINUS operations'''
-
     def expression(self):
         left = self.term()
-        opTree = self.term()
-        while self.current_token.type in (lex.BC_PLUS, lex.BC_MINUS):
+        opTree = left
+        while self.current_token is not None and self.current_token.type in (lex.BC_PLUS, lex.BC_MINUS):
             op_token = self.current_token
             self.advance()
             right = self.term()
