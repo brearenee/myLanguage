@@ -14,7 +14,8 @@ DIGITS = "0123456789"
 def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens() 
-    if error: return error
+    if error: 
+        return tokens, error
     else: 
         parser = p.Parser(tokens) #tokens are output of lexer
         AST= parser.parse()
@@ -96,7 +97,7 @@ class Lexer:
                 tokens.append(self.make_digit())
             else: 
                 char = self.current_char
-                error = errors.IllegalCharError( self.pos )
+                error = errors.IllegalCharError( char )
                 self.advance()
          
         return tokens, error

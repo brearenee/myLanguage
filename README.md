@@ -1,5 +1,9 @@
 ## myLanguage
 project for Principles of Prigramming Language, MSU Denver Fall 2022. 
+**Part 2**
+- Modify the lab4 parser program to add grammar for opening and closing parenthesis to accept expressions with parenthesis.
+
+- Add and Modify the Error class from the lexer program to generate syntax errors for expressions that do not follow the grammar rules.
 
 
 
@@ -18,7 +22,7 @@ GRAMMAR:
 
 expr : term ((PLUS|MINUS) term)*
 term : factor ((MUL|DIV) factor)*
-factor : INT|FLOAT
+factor : INT|FLOAT | L_PAR expr R_PAR
 
 INPUT: 1+2*4  
 OUTPUT: 
