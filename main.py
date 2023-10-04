@@ -5,5 +5,7 @@ import parse as parser
 while True:
     text = input('B@C > ')
     result, error = lexer.run('<stdin>', text)
-    if error: print(error.as_string())
+    if error:
+         print("error prining")
+         print(error.as_string())
     else: print(result)

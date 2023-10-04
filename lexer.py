@@ -18,8 +18,9 @@ def run(fn, text):
         return tokens, error
     else: 
         parser = p.Parser(tokens) #tokens are output of lexer
-        AST= parser.parse()
-        return AST, None
+        AST = parser.parse()
+        print("print AST", AST)
+        return AST, error
 
 class Token:
     def __init__(self, token_type, value=None ):
