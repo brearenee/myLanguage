@@ -58,10 +58,9 @@ class Parser():
     
     def expression(self):
         left = self.term()
-        opTree = left
         while self.current_token is not None and self.current_token.type in (lex.BC_PLUS, lex.BC_MINUS):
             op_token = self.current_token
             self.advance()
             right = self.term()
-            opTree = OperationNode(left, op_token, right)
-        return opTree
+            left = OperationNode(left, op_token, right)
+        return left
