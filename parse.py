@@ -44,17 +44,23 @@ class Parser():
         token = self.current_token
         if token.type in (lex.BC_INT, lex.BC_FLOAT):
             self.advance()
-        return NumberNode(token)
+            return NumberNode(token)
+        elif token.type in (lex.BC_L_PAR, lex.BC_R_PAR):
+            self.advance() 
+            expr = self.expression()
+            ##error handling for no end parenth.  after evaluating the expression inside the parenth, 
+            ##the current token should be end parenth.
+            self.advance() ## ) 
+            return expr
 
     def term(self):
         left = self.factor()
-        opTree = left
         while self.current_token is not None and self.current_token.type in (lex.BC_MULT, lex.BC_DIV):
             op_token = self.current_token
             self.advance() 
             right = self.factor()
-            opTree = OperationNode(left, op_token, right)
-        return opTree
+            left = OperationNode(left, op_token, right)
+        return left
     
     def expression(self):
         left = self.term()
