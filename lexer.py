@@ -22,7 +22,7 @@ def run(fn, text):
             AST = parser.parse()
             print("print AST", AST)
             return AST, None
-        except SyntaxError as e:
+        except errors.Error as e:
             return None, e 
 
 class Token:
