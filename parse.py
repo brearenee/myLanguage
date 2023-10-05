@@ -26,6 +26,7 @@ class Parser():
         self.current_token = tokens[0]
         self.linenum =1
         self.fn = "future filename" 
+        self.parentheses_stack = []
     
 
     def parse(self):
@@ -42,16 +43,20 @@ class Parser():
   
     def factor(self):   
         token = self.current_token
-        if token.type in (lex.BC_INT, lex.BC_FLOAT):
+        if token.type == lex.BC_L_PAR:
+            self.parentheses_stack.append(token)
+            self.advance()
+            expr = self.expression()
+            if self.current_token is None or self.current_token.type != lex.BC_R_PAR:
+                raise SyntaxError("Missing closing parenthesis")
+            self.parentheses_stack.pop()  # Remove the matching opening parenthesis from the stack
+            self.advance()  # Move past the closing parenthesis
+            return expr
+        elif token.type in (lex.BC_INT, lex.BC_FLOAT):
             self.advance()
             return NumberNode(token)
-        elif token.type in (lex.BC_L_PAR, lex.BC_R_PAR):
-            self.advance() 
-            expr = self.expression()
-            ##error handling for no end parenth.  after evaluating the expression inside the parenth, 
-            ##the current token should be end parenth.
-            self.advance() ## ) 
-            return expr
+        else:
+            raise SyntaxError("Unexpected token: " + str(token))       
 
     def term(self):
         left = self.factor()

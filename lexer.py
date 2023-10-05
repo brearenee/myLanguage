@@ -15,12 +15,15 @@ def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens() 
     if error: 
-        return tokens, error
+        return None, error
     else: 
-        parser = p.Parser(tokens) #tokens are output of lexer
-        AST = parser.parse()
-        print("print AST", AST)
-        return AST, error
+        try:
+            parser = p.Parser(tokens) #tokens are output of lexer
+            AST = parser.parse()
+            print("print AST", AST)
+            return AST, None
+        except SyntaxError as e:
+            return None, e 
 
 class Token:
     def __init__(self, token_type, value=None ):
