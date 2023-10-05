@@ -48,15 +48,15 @@ class Parser():
             self.advance()
             expr = self.expression()
             if self.current_token is None or self.current_token.type != lex.BC_R_PAR:
-                raise errors.Error("Missing closing parenthesis", self.current_token)
-            self.parentheses_stack.pop()  # Remove the matching opening parenthesis from the stack
-            self.advance()  # Move past the closing parenthesis
+                raise errors.IllegalGrammarError("Error: Missing End Parenthesis")
+            self.parentheses_stack.pop()  
+            self.advance()  
             return expr
         elif token.type in (lex.BC_INT, lex.BC_FLOAT):
             self.advance()
             return NumberNode(token)
         else:
-            raise errors.Error("Unexpected token: " + str(token))       
+            raise errors.IllegalGrammarError("Illegal Grammar Error- Unexpected token: " + str(token))       
 
     def term(self):
         left = self.factor()

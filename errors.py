@@ -10,13 +10,17 @@ class Error(Exception):
 
 class IllegalCharError(Error):
   def __init__(self, details):
-    super().__init__('Illegal Character', details=":-(")
+    super().__init__('Illegal Character', details)
 
-    def as_string(self):
-      result = f'{self.error_name}: {self.details}\n'
-      return result
+  def as_string(self):
+    result = f'{self.error_name}: {self.details}\n'
+    return result
 
 
 class IllegalGrammarError(Error):
   def __init__(self, details):
-    super().__init__('Illegal grammarr', details=":-(")
+    super().__init__('Illegal grammar', details)
+
+  def as_string(self):
+    result = f'{self.error_name}: {self.details}\n'
+    return result

@@ -20,7 +20,6 @@ def run(fn, text):
         try:
             parser = p.Parser(tokens) #tokens are output of lexer
             AST = parser.parse()
-            print("print AST", AST)
             return AST, None
         except errors.Error as e:
             return None, e 
@@ -101,7 +100,7 @@ class Lexer:
                 tokens.append(self.make_digit())
             else: 
                 char = self.current_char
-                error = errors.IllegalCharError( char )
+                error = errors.IllegalCharError( f"Illegal Character Error:  {char}" )
                 self.advance()
          
         return tokens, error
